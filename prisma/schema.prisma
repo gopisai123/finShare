@@ -21,6 +21,8 @@ model User {
   // Relations to the new ledger tracking tables
   paidExpenses Expense[]      @relation("PaidExpenses")
   splits       ExpenseSplit[]
+  friends   Friendship[] @relation("UserFriends")
+  friendedBy Friendship[] @relation("FriendToUser")
 }
 
 model Expense {
@@ -41,4 +43,15 @@ model ExpenseSplit {
   user      User     @relation(fields: [userId], references: [clerkId], onDelete: Cascade)
   amount    Float
   isPaid    Boolean  @default(false)
+}
+
+model Friendship {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation("UserFriends", fields: [userId], references: [clerkId], onDelete: Cascade)
+  friendId  String
+  friend    User     @relation("FriendToUser", fields: [friendId], references: [clerkId], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, friendId])
 }
