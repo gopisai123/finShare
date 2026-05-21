@@ -1,5 +1,7 @@
 # finShare
 
+[![Deployment Status](https://img.shields.io/badge/Live_Demo-fin--share.vercel.app-16a34a?style=for-the-badge)](https://fin-share.vercel.app)
+
 finShare is a modern expense sharing dashboard built with Next.js App Router, Clerk authentication, Prisma v7, and PostgreSQL.
 
 It lets authenticated users:
