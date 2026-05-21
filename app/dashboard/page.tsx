@@ -110,13 +110,7 @@ export default async function DashboardPage() {
         {/* Quick Log Form */}
         <div className="p-6 bg-gray-900 rounded-xl border border-gray-800">
           <h2 className="text-xl font-bold mb-4">Log a New Bill</h2>
-          <form
-            action={async (formData) => {
-              "use server";
-              await createExpense(null, formData);
-            }}
-            className="space-y-4"
-          >
+          <form action={createExpense} className="space-y-4">
             <div>
               <label className="block text-sm text-gray-400 mb-1">
                 Description
