@@ -16,6 +16,7 @@ model User {
   email        String
   name         String?
   avatarUrl    String?
+  upiId        String?
   createdAt    DateTime       @default(now())
   
   // Relations to the new ledger tracking tables
@@ -29,6 +30,7 @@ model Expense {
   id          String         @id @default(cuid())
   amount      Float
   description String
+  category    Category       @default(OTHER)
   paidById    String
   paidBy      User           @relation("PaidExpenses", fields: [paidById], references: [clerkId], onDelete: Cascade)
   splits      ExpenseSplit[]
@@ -43,6 +45,9 @@ model ExpenseSplit {
   user      User     @relation(fields: [userId], references: [clerkId], onDelete: Cascade)
   amount    Float
   isPaid    Boolean  @default(false)
+  method    SplitMethod @default(EQUAL)
+  percent   Float?
+  exact     Float?
 }
 
 model Friendship {
@@ -54,4 +59,19 @@ model Friendship {
   createdAt DateTime @default(now())
 
   @@unique([userId, friendId])
+}
+
+enum Category {
+  FOOD
+  RENT
+  TRANSPORT
+  ENTERTAINMENT
+  UTILITIES
+  OTHER
+}
+
+enum SplitMethod {
+  EQUAL
+  EXACT
+  PERCENT
 }
